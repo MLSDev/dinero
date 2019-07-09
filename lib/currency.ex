@@ -9,4 +9,9 @@ defmodule Dinero.Currency do
   def all do
     @currencies
   end
+
+  def get!(currency) do
+    Enum.find(all(), fn map -> map[:code] == currency end) ||
+      raise(ArgumentError, "currency #{currency} not found")
+  end
 end
