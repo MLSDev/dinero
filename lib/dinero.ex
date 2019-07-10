@@ -57,7 +57,28 @@ defmodule Dinero do
     a / 100
   end
 
+  def convert(%Dinero{amount: a}, target, exchange_rate) do
+    %Dinero{amount: trunc(a * round(exchange_rate * 100) / 100), currency: get_currency_code(target)}
+  end
+
   defp get_currency_code(currency) do
     Currency.get!(currency).code
+  end
+
+  def convert_float_to_int(value) do  
+    list = Float.to_string(value)
+    |>String.split(".")
+
+    first = List.first(list)
+    |>String.to_integer
+    |>Kernel.*(100)
+
+    last = List.last(list)
+    if (String.length(last) == 1) do
+      first + String.to_integer(last) * 10
+    else
+      first + String.slice(last, 0, 2)
+      |>String.to_integer
+    end
   end
 end

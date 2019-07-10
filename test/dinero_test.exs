@@ -8,6 +8,7 @@ defmodule DineroTest do
 
   test "new with float amount" do
     assert Dinero.new(0.02, :USD) == %Dinero{amount: 2, currency: :USD}
+    assert Dinero.new(2568.7,:USD) == %Dinero{amount: 2568.7, currency: :USD}
   end
 
   test "new with invalid currency" do
@@ -82,7 +83,7 @@ defmodule DineroTest do
     assert Dinero.multiply(a, b) == Dinero.new(5, :USD)
   end
 
-  test "divide integer" do
+  test "divide" do
     a = Dinero.new(3000, :USD)
     b = 168
     assert Dinero.divide(a, b) == Dinero.new(17.86, :USD)
@@ -94,10 +95,18 @@ defmodule DineroTest do
   end
 
   test "float_amount" do
-    rate = Dinero.new(19.05, :USD)
-    assert Dinero.float_amount(rate) == 19.05
+    rate = Dinero.new(14.05, :USD)
+    assert Dinero.float_amount(rate) == 14.05
 
     rate = Dinero.new(1000, :USD)
     assert Dinero.float_amount(rate) == 1000
+  end
+
+  test "exchange" do
+    source = Dinero.new(100.34, :USD)
+    rate = 25.6
+    target = :UAH
+
+    assert Dinero.convert(source, target, rate) == Dinero.new(2568.7, :UAH)
   end
 end
