@@ -8,7 +8,7 @@ defmodule DineroTest do
 
   test "new with float amount" do
     assert Dinero.new(0.02, :USD) == %Dinero{amount: 2, currency: :USD}
-    assert Dinero.new(2568.7,:USD) == %Dinero{amount: 256870, currency: :USD}
+    assert Dinero.new(2568.7, :USD) == %Dinero{amount: 256_870, currency: :USD}
   end
 
   test "new with invalid currency" do
@@ -77,10 +77,21 @@ defmodule DineroTest do
     assert Dinero.multiply(a, b) == Dinero.new(500, :USD)
   end
 
-  test "multiply float" do
+  test "multiply round float" do
     a = Dinero.new(100, :USD)
-    b = 0.05
-    assert Dinero.multiply(a, b) == Dinero.new(5, :USD)
+    assert Dinero.multiply_round(a, 0.05) == Dinero.new(5, :USD)
+    assert Dinero.multiply_round(a, 1.005) == Dinero.new(100.5, :USD)
+    assert Dinero.multiply_round(a, 1.5) == Dinero.new(150, :USD)
+
+    a2 = Dinero.new(0.15, :USD)
+    assert Dinero.multiply_round(a2, 1.05) == Dinero.new(0.16, :USD)
+  end
+
+  test "multiply trunc float" do
+    a1 = Dinero.new(100, :USD)
+    a2 = Dinero.new(0.15, :USD)
+    assert Dinero.multiply_trunc(a1, 1.005) == Dinero.new(100.49, :USD)
+    assert Dinero.multiply_trunc(a2, 1.05) == Dinero.new(0.157, :USD)
   end
 
   test "divide" do
