@@ -44,7 +44,7 @@ defmodule Dinero do
     multiply(d, value)
   end
 
-  #10000*1.005 = 10049.999999999998
+  # 10000*1.005 = 10049.999999999998
   def multiply_round(%Dinero{amount: a, currency: currency}, value) when is_float(value) do
     %Dinero{amount: round(a * value), currency: get_currency_code(currency)}
   end
