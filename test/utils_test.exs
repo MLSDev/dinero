@@ -3,7 +3,7 @@ defmodule UtilsTest do
   alias Dinero.Utils
 
   test "convert_currency_to_coins for integer" do
-    assert Utils.convert_currency_to_coins(12356) == 1_235_600
+    assert Utils.convert_currency_to_coins(12_356) == 1_235_600
   end
 
   test "convert_currency_to_coins for float" do
