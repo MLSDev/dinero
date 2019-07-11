@@ -8,7 +8,7 @@ defmodule DineroTest do
 
   test "new with float amount" do
     assert Dinero.new(0.02, :USD) == %Dinero{amount: 2, currency: :USD}
-    assert Dinero.new(2568.7,:USD) == %Dinero{amount: 2568.7, currency: :USD}
+    assert Dinero.new(2568.7,:USD) == %Dinero{amount: 256870, currency: :USD}
   end
 
   test "new with invalid currency" do
