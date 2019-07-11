@@ -40,10 +40,6 @@ defmodule Dinero do
     %Dinero{amount: a * value, currency: get_currency_code(currency)}
   end
 
-  def multiply_round(%Dinero{} = d, value) when is_integer(value) do
-    multiply(d, value)
-  end
-
   # 10000*1.005 = 10049.999999999998
   def multiply_round(%Dinero{amount: a, currency: currency}, value) when is_float(value) do
     %Dinero{amount: round(a * value), currency: get_currency_code(currency)}
@@ -51,10 +47,6 @@ defmodule Dinero do
 
   def multiply_trunc(%Dinero{amount: a, currency: currency}, value) when is_float(value) do
     %Dinero{amount: trunc(a * value), currency: get_currency_code(currency)}
-  end
-
-  def multiply_trunc(%Dinero{} = d, value) when is_integer(value) do
-    multiply(d, value)
   end
 
   def divide(%Dinero{amount: a, currency: currency}, value)
