@@ -5,7 +5,8 @@ defmodule Dinero do
   @enforce_keys [:amount, :currency]
   defstruct [:amount, :currency]
 
-  def new(amount, currency) when (is_integer(amount) or is_float(amount)) and is_atom(currency) do
+  def new(amount, currency)
+      when (is_integer(amount) or is_float(amount)) and (is_atom(currency) or is_binary(currency)) do
     %Dinero{
       amount: Utils.convert_currency_to_coins(amount),
       currency: get_currency_code(currency)

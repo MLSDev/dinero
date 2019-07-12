@@ -11,6 +11,10 @@ defmodule DineroTest do
     assert Dinero.new(2568.7, :USD) == %Dinero{amount: 256_870, currency: :USD}
   end
 
+  test "new with string currency" do
+    assert Dinero.new(1235.32, "uah") == %Dinero{amount: 123_532, currency: :UAH}
+  end
+
   test "new with invalid currency" do
     assert_raise ArgumentError, fn ->
       Dinero.new(123, :ABC)
