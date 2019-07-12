@@ -32,7 +32,8 @@ defmodule Dinero.MixProject do
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
       {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false},
       {:ecto, "~>3.0", optional: true},
-      {:excoveralls, "~> 0.10", only: :test}
+      {:excoveralls, "~> 0.10", only: :test},
+      {:ex_doc, "~> 0.19", only: :dev, runtime: false}
     ]
   end
 end

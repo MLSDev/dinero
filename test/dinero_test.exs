@@ -117,11 +117,21 @@ defmodule DineroTest do
     assert Dinero.float_amount(rate) == 1000
   end
 
-  test "exchange" do
+  test "exchange different currencies" do
     source = Dinero.new(100.34, :USD)
     rate = 25.6
     target = :UAH
 
     assert Dinero.convert(source, target, rate) == Dinero.new(2568.7, :UAH)
+  end
+
+  test "the same currencies" do
+    source = Dinero.new(100, :USD)
+    rate = 123
+    target = :USD
+
+    assert_raise ArgumentError, fn ->
+      Dinero.convert(source, target, rate)
+    end
   end
 end

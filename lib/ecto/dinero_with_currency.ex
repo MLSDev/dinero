@@ -1,8 +1,8 @@
 if Code.ensure_compiled?(Ecto.Type) do
-  defmodule Dinero.Ecto.MoneyWithCurrency do
+  defmodule Dinero.Ecto.DineroWithCurrency do
     @behaviour Ecto.Type
 
-    def type, do: :money_with_currency
+    def type, do: :dinero_with_currency
 
     def dump(%Dinero{amount: amount, currency: currency}) do
       {:ok, {amount, to_string(currency)}}
@@ -20,10 +20,6 @@ if Code.ensure_compiled?(Ecto.Type) do
         when is_integer(amount) and (is_binary(currency) or is_atom(currency)) do
       {:ok, Dinero.new(amount / 100, currency)}
     end
-
-    # def cast(%{"amount" => amount, "currency" => currency}) when is_integer(amount) and (is_binary(currency) or is_atom(currency)) do
-    #  {:ok, Dinero.new(amount, currency)}
-    # end
 
     def cast(_), do: :error
   end
