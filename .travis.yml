@@ -2,7 +2,5 @@ language: elixir
 elixir:
   - 1.9.0
 after_script:
-  - mix hex.config username $HEX_USERNAME
-  - mix hex.config key $HEX_KEY
-  - mix hex.docs
-  - mix hex.publish
+  - mix hex.config api_key $HEX_KEY
+  - yes | mix hex.publish
