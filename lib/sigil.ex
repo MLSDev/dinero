@@ -1,14 +1,17 @@
 defmodule Dinero.Sigil do
-  @moduledoc false
+  @moduledoc """
+  Provides sigil to create `Dinero` struct
+  """
 
   @doc ~S"""
   Handles the sigil `~m` for Dinero
 
   ## Usage
 
-    iex> import Dinero.Sigil
-    iex> ~m[100.24]usd
-    %Dinero{amount: 10024, currency: :USD}
+      iex> import Dinero.Sigil
+      iex> ~m[100.24]usd
+      %Dinero{amount: 10024, currency: :USD}
+
   """
 
   defmacro sigil_m({:<<>>, _, [amount]}, [_ | _] = currency) do

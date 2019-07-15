@@ -83,38 +83,25 @@ defmodule DineroTest do
 
   test "multiply round float" do
     a = Dinero.new(100, :USD)
-    assert Dinero.multiply_round(a, 0.05) == Dinero.new(5, :USD)
-    assert Dinero.multiply_round(a, 1.005) == Dinero.new(100.5, :USD)
-    assert Dinero.multiply_round(a, 1.5) == Dinero.new(150, :USD)
+    assert Dinero.multiply(a, 0.05, true) == Dinero.new(5, :USD)
+    assert Dinero.multiply(a, 1.005, true) == Dinero.new(100.5, :USD)
+    assert Dinero.multiply(a, 1.5, true) == Dinero.new(150, :USD)
 
     a2 = Dinero.new(0.15, :USD)
-    assert Dinero.multiply_round(a2, 1.05) == Dinero.new(0.16, :USD)
+    assert Dinero.multiply(a2, 1.05, true) == Dinero.new(0.16, :USD)
   end
 
   test "multiply trunc float" do
     a1 = Dinero.new(100, :USD)
     a2 = Dinero.new(0.15, :USD)
-    assert Dinero.multiply_trunc(a1, 1.005) == Dinero.new(100.49, :USD)
-    assert Dinero.multiply_trunc(a2, 1.05) == Dinero.new(0.157, :USD)
+    assert Dinero.multiply(a1, 1.005) == Dinero.new(100.49, :USD)
+    assert Dinero.multiply(a2, 1.05) == Dinero.new(0.157, :USD)
   end
 
   test "divide" do
     a = Dinero.new(3000, :USD)
     b = 168
     assert Dinero.divide(a, b) == Dinero.new(17.86, :USD)
-  end
-
-  test "formatted string" do
-    a = Dinero.new(123.3456565, :USD)
-    assert Dinero.formatted_string(a) == "123.34 USD"
-  end
-
-  test "float_amount" do
-    rate = Dinero.new(14.05, :USD)
-    assert Dinero.float_amount(rate) == 14.05
-
-    rate = Dinero.new(1000, :USD)
-    assert Dinero.float_amount(rate) == 1000
   end
 
   test "exchange different currencies" do

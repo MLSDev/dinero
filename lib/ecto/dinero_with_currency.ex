@@ -1,5 +1,37 @@
 if Code.ensure_compiled?(Ecto.Type) do
   defmodule Dinero.Ecto.DineroWithCurrency do
+    @moduledoc """
+    Provides a custom type for Ecto to save dinero's amount with currency in database
+
+    ## Example
+
+      1. Create custom Postrgres type
+      
+      ```
+      def up do
+        execute "CREATE TYPE public.dinero_with_currency AS (amount integer, currency char(3))"
+      end
+      
+      def down do
+        execute "DROP TYPE public.dinero_with_currency"
+      end
+      ```
+
+      2. Add column to the table
+
+      ```
+      alter table (:some_table) do
+        add :price, :dinero_with_currency
+      end
+      ```
+      3. Add field to the schema
+      ```
+      schema "some_table" do
+        field :price, Dinero.Ecto.DineroWithCurrency
+      end
+      ```
+    """
+
     @behaviour Ecto.Type
 
     def type, do: :dinero_with_currency

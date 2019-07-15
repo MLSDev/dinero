@@ -1,4 +1,5 @@
 defmodule Dinero.Utils do
+  @moduledoc false
   # 2568.7 * 100 must be 256870 and not 256869.9999...
   def convert_currency_to_coins(value) when is_float(value) do
     list =
