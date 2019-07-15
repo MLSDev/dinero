@@ -78,7 +78,7 @@ defmodule Dinero do
 
   @spec add(t, t | integer | float) :: t
   @doc ~S"""
-  Substracts one `Dinero` from another or an integer/float (converted to cents) from a `Dinero`
+  Subtracts one `Dinero` from another or an integer/float (converted to cents) from a `Dinero`
 
   ## Examples
 
