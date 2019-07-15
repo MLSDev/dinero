@@ -1,5 +1,7 @@
-# Dinero
+![Travis-ci](https://api.travis-ci.org/MLSDev/AnimatedRecyclerView.svg)
 
+
+# Dinero
 Elixir library for working with Money (slang Dinero)
 
 ## How to use
