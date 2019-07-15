@@ -7,6 +7,7 @@ defmodule Dinero.MixProject do
       version: "1.0.0",
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
+      description: description(),
       deps: deps(),
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [
@@ -23,6 +24,10 @@ defmodule Dinero.MixProject do
     [
       extra_applications: [:logger]
     ]
+  end
+
+  defp description() do
+    "Elixir library for working with Money (slang Dinero)"
   end
 
   # Run "mix help deps" to learn about dependencies.

@@ -108,7 +108,7 @@ defmodule Dinero do
 
   @spec multiply(t, integer | float, boolean) :: t
   @doc ~S"""
-  Multiplies a `Dinero` by a value. If a multiplier is float you can pass the third boolean param to round up or truncate the result
+  Multiplies a `Dinero` by a value. If a multiplier is float you can pass the third boolean param to round up (true) or truncate (false, default) the result
 
   ## Examples
 
