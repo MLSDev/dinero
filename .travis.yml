@@ -3,4 +3,4 @@ elixir:
   - 1.9.0
 after_script:
   - mix hex.config api_key $HEX_KEY
-  - yes | mix hex.publish
+  - mix hex.publish --yes

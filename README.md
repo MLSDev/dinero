@@ -1,4 +1,4 @@
-![Travis-ci](https://api.travis-ci.org/MLSDev/AnimatedRecyclerView.svg)
+[![Build Status](https://travis-ci.org/MLSDev/dinero.svg?branch=master)](https://travis-ci.org/MLSDev/dinero)
 
 
 # Dinero
