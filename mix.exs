@@ -42,7 +42,7 @@ defmodule Dinero.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      #{:credo, "~> 1.0.0", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false},
       {:ecto, "~>3.0", optional: true},
       {:excoveralls, "~> 0.10", only: :test},
       {:ex_doc, "~> 0.19", only: :dev, runtime: false}
