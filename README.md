@@ -72,7 +72,7 @@ Elixir library for working with Money (slang Dinero)
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
+It is [available in Hex](https://hex.pm/packages/dinero) and can be installed
 by adding `dinero` to your list of dependencies in `mix.exs`:
 
 ```elixir
@@ -83,9 +83,7 @@ def deps do
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/dinero](https://hexdocs.pm/dinero).
+Documentation can be found [here](https://hexdocs.pm/dinero)
 
 ## Authors
 * [Slava Fir](mailto:fir@mlsdev.com) ([github profile][github-fir]), MLSDev 
