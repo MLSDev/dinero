@@ -7,10 +7,13 @@ defmodule Dinero do
 
   ## Examples
   
-      iex> d = Dinero.new(100, :USD)
+      iex> d1 = Dinero.new(100, :USD)
       %Dinero{amount: 10000, currency: :USD}
-      iex> Dinero.add(d, 200)
+      iex> d2 = Dinero.new(200, :USD)
+      %Dinero{amount: 20000, currency: :USD}
+      iex> Dinero.add(d1, d2)
       %Dinero{amount: 30000, currency: :USD}
+
 
   **Note:** `Dinero` uses coins value for calculations. So when you
   create a new `Dinero` struct with 100 USD it automatically transforms this into 10000 cents
@@ -45,10 +48,9 @@ defmodule Dinero do
     }
   end
 
-  @spec add(t, t | integer | float) :: t
+  @spec add(t, t) :: t
   @doc ~S"""
-  Adds two `Dinero` structs or `Dinero` and integer or float value.
-  Both integer and float values will be converted to cents
+  Adds two `Dinero` structs
 
   ## Examples
 
@@ -58,27 +60,15 @@ defmodule Dinero do
       %Dinero{amount: 2000, currency: :USD}
       iex> Dinero.add(d1, d2)
       %Dinero{amount: 12000, currency: :USD}
-      iex> Dinero.add(d1, 10)
-      %Dinero{amount: 11000, currency: :USD}
-      iex> Dinero.add(d1, 0.05)
-      %Dinero{amount: 10005, currency: :USD}
     
   """
   def add(%Dinero{amount: a, currency: currency}, %Dinero{amount: b, currency: currency}) do
     %Dinero{amount: a + b, currency: get_currency_code(currency)}
   end
 
-  def add(%Dinero{amount: a, currency: currency}, value)
-      when is_integer(value) or is_float(value) do
-    %Dinero{
-      amount: a + Utils.convert_currency_to_coins(value),
-      currency: get_currency_code(currency)
-    }
-  end
-
-  @spec add(t, t | integer | float) :: t
+  @spec subtract(t, t) :: t
   @doc ~S"""
-  Subtracts one `Dinero` from another or an integer/float (converted to cents) from a `Dinero`
+  Subtracts one `Dinero` from another
 
   ## Examples
 
@@ -88,22 +78,10 @@ defmodule Dinero do
       %Dinero{amount: 2000, currency: :USD}
       iex> Dinero.subtract(d1, d2)
       %Dinero{amount: 8000, currency: :USD}
-      iex> Dinero.subtract(d1, 10)
-      %Dinero{amount: 9000, currency: :USD}
-      iex> Dinero.subtract(d1, 10.24)
-      %Dinero{amount: 8976, currency: :USD}
     
   """
   def subtract(%Dinero{amount: a, currency: currency}, %Dinero{amount: b, currency: currency}) do
     %Dinero{amount: a - b, currency: get_currency_code(currency)}
-  end
-
-  def subtract(%Dinero{amount: a, currency: currency}, value)
-      when is_integer(value) or is_float(value) do
-    %Dinero{
-      amount: a - Utils.convert_currency_to_coins(value),
-      currency: get_currency_code(currency)
-    }
   end
 
   @spec multiply(t, integer | float, boolean) :: t

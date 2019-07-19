@@ -7,8 +7,8 @@ Elixir library for working with Money (slang Dinero)
 ## How to use
 ```elixir
   ten_bucks = Dinero.new(10, :USD) #%Dinero{amount: 1000, currency: :USD}
-  twenty_bucks = Dinero.add(ten_bucks, 10) #%Dinero{amount: 2000, currency: :USD}
-  two_bucks = Dinero.subtract(twenty_bucks, 18) #%Dinero{amount: 200, currency: :USD}
+  twenty_bucks = Dinero.new(20, :USD) #%Dinero{amount: 2000, currency: :USD}
+  two_bucks = Dinero.subtract(twenty_bucks, ten_bucks) #%Dinero{amount: 200, currency: :USD}
   four_bucks = Dinero.multiply(two_bucks, 2) #%Dinero{amount: 400, currency: :USD}
   convert = Dinero.convert(four_bucks, :UAH, 26.2) #%Dinero{amount: 10480, currency: :UAH}
 ```
@@ -78,7 +78,7 @@ by adding `dinero` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:dinero, "~> 1.0.0"}
+    {:dinero, "~> 1.1.0"}
   ]
 end
 ```

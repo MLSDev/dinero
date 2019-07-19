@@ -36,18 +36,6 @@ defmodule DineroTest do
     end
   end
 
-  test "add an int value to an existing currency" do
-    a = Dinero.new(123, :USD)
-    b = 100
-    assert Dinero.add(a, b) == Dinero.new(223, :USD)
-  end
-
-  test "add a float value to an existing currency" do
-    a = Dinero.new(123, :USD)
-    b = 0.011231232
-    assert Dinero.add(a, b) == Dinero.new(123.01, :USD)
-  end
-
   test "subtract the same currencies" do
     a = Dinero.new(100, :USD)
     b = Dinero.new(20, :USD)
@@ -61,18 +49,6 @@ defmodule DineroTest do
     assert_raise FunctionClauseError, fn ->
       Dinero.subtract(a, b)
     end
-  end
-
-  test "subtract an int value" do
-    a = Dinero.new(100, :USD)
-    b = 20
-    assert Dinero.subtract(a, b) == Dinero.new(80, :USD)
-  end
-
-  test "subtract a float value" do
-    a = Dinero.new(100, :USD)
-    b = 0.02
-    assert Dinero.subtract(a, b) == Dinero.new(99.98, :USD)
   end
 
   test "multiply integer" do
