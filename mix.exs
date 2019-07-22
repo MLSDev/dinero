@@ -23,7 +23,7 @@ defmodule Dinero.MixProject do
       docs: [
         main: "readme",
         extras: ["README.md"],
-        source_ref: "v#{@version}",
+        source_ref: "v#{@version}"
       ]
     ]
   end
