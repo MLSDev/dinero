@@ -22,7 +22,7 @@ defmodule Dinero.Currency do
         %{code: :PLN, name: "Zloty"},
         %{code: :UAH, name: "Hryvnia"}
       ]
-  
+
   """
 
   def all do

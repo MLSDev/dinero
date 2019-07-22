@@ -59,16 +59,16 @@ defmodule DineroTest do
 
   test "multiply round float" do
     d1 = Dinero.new(100, :USD)
-    assert Dinero.multiply(d1, 0.05, true) == Dinero.new(5, :USD)
-    assert Dinero.multiply(d1, 1.005, true) == Dinero.new(100.5, :USD)
-    assert Dinero.multiply(d1, 1.5, true) == Dinero.new(150, :USD)
+    assert Dinero.multiply(d1, 0.05, :round_up) == Dinero.new(5, :USD)
+    assert Dinero.multiply(d1, 1.005, :round_up) == Dinero.new(100.5, :USD)
+    assert Dinero.multiply(d1, 1.5, :round_up) == Dinero.new(150, :USD)
 
     d2 = Dinero.new(0.15, :USD)
-    assert Dinero.multiply(d2, 1.05, true) == Dinero.new(0.16, :USD)
+    assert Dinero.multiply(d2, 1.05, :round_up) == Dinero.new(0.16, :USD)
 
-    assert Dinero.multiply(Dinero.new(8.93, :USD), 121.75, true) == Dinero.new(1087.23, :USD)
-    assert Dinero.multiply(Dinero.new(8.93, :USD), 161.75, true) == Dinero.new(1444.43, :USD)
-    assert Dinero.multiply(Dinero.new(17.26, :USD), 125.99, true) == Dinero.new(2174.59, :USD)
+    assert Dinero.multiply(Dinero.new(8.93, :USD), 121.75, :round_up) == Dinero.new(1087.23, :USD)
+    assert Dinero.multiply(Dinero.new(8.93, :USD), 161.75, :round_up) == Dinero.new(1444.43, :USD)
+    assert Dinero.multiply(Dinero.new(17.26, :USD), 125.99, :round_up) == Dinero.new(2174.59, :USD)
   end
 
   test "multiply trunc float" do
@@ -82,12 +82,20 @@ defmodule DineroTest do
     assert Dinero.multiply(Dinero.new(17.26, :USD), 125.99) == Dinero.new(2174.58, :USD)
   end
 
-  test "divide" do
+  test "divide trunc" do
     hours_per_month = 168
 
-    assert Dinero.divide(Dinero.new(3000, :USD), hours_per_month) == Dinero.new(17.86, :USD)
-    assert Dinero.divide(Dinero.new(1500, :USD), hours_per_month) == Dinero.new(8.93, :USD)
+    assert Dinero.divide(Dinero.new(3000, :USD), hours_per_month) == Dinero.new(17.85, :USD)
+    assert Dinero.divide(Dinero.new(1500, :USD), hours_per_month) == Dinero.new(8.92, :USD)
     assert Dinero.divide(Dinero.new(2500, :USD), hours_per_month) == Dinero.new(14.88, :USD)
+  end
+
+  test "divide round up" do
+    hours_per_month = 168
+
+    assert Dinero.divide(Dinero.new(3000, :USD), hours_per_month, :round_up) == Dinero.new(17.86, :USD)
+    assert Dinero.divide(Dinero.new(1500, :USD), hours_per_month, :round_up) == Dinero.new(8.93, :USD)
+    assert Dinero.divide(Dinero.new(2500, :USD), hours_per_month, :round_up) == Dinero.new(14.88, :USD)
   end
 
   test "exchange different currencies" do

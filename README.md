@@ -28,13 +28,13 @@ Elixir library for working with Money (slang Dinero)
     ```
 2. Add column to the table
     ```elixir
-    alter table (:some_table) do
+    alter table (:products) do
       add :price, :dinero_with_currency
     end
     ```
 3. Add field to the schema
     ```elixir
-    schema "some_table" do
+    schema "products" do
       field :price, Dinero.Ecto.DineroWithCurrency
     end
     ```

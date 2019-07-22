@@ -6,7 +6,7 @@ defmodule Dinero do
   `Dinero` is a struct that provides methods for working with currencies
 
   ## Examples
-  
+
       iex> d1 = Dinero.new(100, :USD)
       %Dinero{amount: 10000, currency: :USD}
       iex> d2 = Dinero.new(200, :USD)
@@ -84,9 +84,9 @@ defmodule Dinero do
     %Dinero{amount: a - b, currency: get_currency_code(currency)}
   end
 
-  @spec multiply(t, integer | float, boolean) :: t
+  @spec multiply(t, integer | float) :: t
   @doc ~S"""
-  Multiplies a `Dinero` by a value. If a multiplier is float you can pass the third boolean param to round up (true) or truncate (false, default) the result
+  Multiplies a `Dinero` by a value and truncates the result
 
   ## Examples
 
@@ -96,29 +96,35 @@ defmodule Dinero do
       %Dinero{amount: 48000, currency: :USD}
       iex> d = Dinero.new(100, :USD)
       %Dinero{amount: 10000, currency: :USD}
-      iex> Dinero.multiply(d, 1.005, true)
-      %Dinero{amount: 10050, currency: :USD}
       iex> Dinero.multiply(d, 1.005)      
       %Dinero{amount: 10049, currency: :USD}
     
   """
-  def multiply(%Dinero{amount: a, currency: currency}, value, round_up \\ false)
-      when is_integer(value) or (is_float(value) and is_boolean(round_up)) do
-    cond do
-      is_integer(value) ->
-        %Dinero{amount: a * value, currency: get_currency_code(currency)}
+  def multiply(%Dinero{amount: a, currency: currency}, value)
+      when is_integer(value) or is_float(value) do
+    %Dinero{amount: trunc(a * value), currency: get_currency_code(currency)}
+  end
 
-      is_float(value) && round_up ->
-        %Dinero{amount: round(a * value), currency: get_currency_code(currency)}
+  @spec multiply(t, integer | float, atom) :: t
+  @doc ~S"""
+  Multiplies a `Dinero` by a value and rounds up the result
 
-      true ->
-        %Dinero{amount: trunc(a * value), currency: get_currency_code(currency)}
-    end
+  ## Examples
+
+      iex> d = Dinero.new(100, :USD)
+      %Dinero{amount: 10000, currency: :USD}
+      iex> Dinero.multiply(d, 1.005, :round_up)
+      %Dinero{amount: 10050, currency: :USD}
+
+  """
+  def multiply(%Dinero{amount: a, currency: currency}, value, round_up)
+      when (is_integer(value) or is_float(value)) and is_atom(round_up) do
+    %Dinero{amount: round(a * value), currency: get_currency_code(currency)}
   end
 
   @spec divide(t, integer | float) :: t
   @doc ~S"""
-  Divides `Dinero` by a value and rounds the result
+  Divides `Dinero` by a value and truncates the result
 
   ## Examples
 
@@ -127,17 +133,36 @@ defmodule Dinero do
       iex> Dinero.divide(d, 3)
       %Dinero{amount: 3341, currency: :USD}
       iex> Dinero.divide(d, 5)
-      %Dinero{amount: 2005, currency: :USD}
+      %Dinero{amount: 2004, currency: :USD}
     
   """
   def divide(%Dinero{amount: a, currency: currency}, value)
       when is_integer(value) or is_float(value) do
+    %Dinero{amount: trunc(a / value), currency: get_currency_code(currency)}
+  end
+
+  @spec divide(t, integer | float, atom) :: t
+  @doc ~S"""
+  Divides `Dinero` by a value and rounds up the result
+
+  ## Examples
+
+      iex> d = Dinero.new(100.24, :USD)
+      %Dinero{amount: 10024, currency: :USD}
+      iex> Dinero.divide(d, 3, :round_up)
+      %Dinero{amount: 3341, currency: :USD}
+      iex> Dinero.divide(d, 5, :round_up)
+      %Dinero{amount: 2005, currency: :USD}
+    
+  """
+  def divide(%Dinero{amount: a, currency: currency}, value, round_up)
+      when (is_integer(value) or is_float(value)) and is_atom(round_up) do
     %Dinero{amount: round(a / value), currency: get_currency_code(currency)}
   end
 
   @spec convert(t, atom | String.t(), float) :: t
   @doc ~S"""
-  Converts value of `Dinero` to target currency using exchange_rate
+  Converts value of `Dinero` to target currency using exchange_rate and truncates the result
 
   ## Examples
 
