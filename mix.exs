@@ -1,10 +1,12 @@
 defmodule Dinero.MixProject do
   use Mix.Project
 
+  @version "1.1.0"
+
   def project do
     [
       app: :dinero,
-      version: "1.1.0",
+      version: @version,
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
       description: description(),
@@ -17,7 +19,12 @@ defmodule Dinero.MixProject do
         "coveralls.html": :test
       ],
       package: package(),
-      source_url: "https://github.com/MLSDev/dinero"
+      source_url: "https://github.com/MLSDev/dinero",
+      docs: [
+        main: "readme",
+        extras: ["README.md"],
+        source_ref: "v#{@version}",
+      ]
     ]
   end
 

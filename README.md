@@ -86,14 +86,14 @@ end
 Documentation can be found [here](https://hexdocs.pm/dinero)
 
 ## Authors
-* [Slava Fir](mailto:fir@mlsdev.com) ([github profile][github-fir]), MLSDev 
+* [Slava Fir][github-fir] , MLSDev 
 
 ## License
 Dinero is released under the MIT license. See LICENSE for details.
 
 ## About MLSDev
 
-[<img src="https://cloud.githubusercontent.com/assets/1778155/11761239/ccfddf60-a0c2-11e5-8f2a-8573029ab09d.png" alt="MLSDev.com">][mlsdev]
+[<img src="https://raw.githubusercontent.com/MLSDev/development-standards/master/mlsdev-logo.png" alt="MLSDev.com">][mlsdev]
 
 [Dinero](https://github.com/MLSDev/dinero) is maintained by MLSDev, Inc. We specialize in providing all-in-one solution in mobile and web development. Our team follows Lean principles and works according to agile methodologies to deliver the best results reducing the budget for development and its timeline. 
 
