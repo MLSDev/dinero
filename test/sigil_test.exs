@@ -13,4 +13,8 @@ defmodule Dinero.SigilTest do
     invalid_sigil = quote(do: ~m[shit]usd)
     assert %ArgumentError{} = catch_error(Code.eval_quoted(invalid_sigil))
   end
+
+  test "default currency" do
+    assert ~m[100] == Dinero.new(100, :USD)
+  end
 end

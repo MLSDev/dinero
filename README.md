@@ -6,11 +6,20 @@ Elixir library for working with Money (slang Dinero)
 
 ## How to use
 ```elixir
-  ten_bucks = Dinero.new(10, :USD) #%Dinero{amount: 1000, currency: :USD}
-  twelve_bucks = Dinero.new(12, :USD) #%Dinero{amount: 1200, currency: :USD}
-  two_bucks = Dinero.subtract(twenty_bucks, ten_bucks) #%Dinero{amount: 200, currency: :USD}
-  four_bucks = Dinero.multiply(two_bucks, 2) #%Dinero{amount: 400, currency: :USD}
-  convert = Dinero.convert(four_bucks, :UAH, 26.2) #%Dinero{amount: 10480, currency: :UAH}
+  iex> ten_bucks = Dinero.new(10, :USD)
+  %Dinero{amount: 1000, currency: :USD}
+  iex> twelve_bucks = Dinero.new(12, :USD)
+  %Dinero{amount: 1200, currency: :USD}
+  iex> two_bucks = Dinero.subtract(twenty_bucks, ten_bucks)
+  %Dinero{amount: 200, currency: :USD}
+  iex> four_bucks = Dinero.multiply(two_bucks, 2)
+  %Dinero{amount: 400, currency: :USD}
+  iex> convert = Dinero.convert(four_bucks, :UAH, 26.2)
+  %Dinero{amount: 10480, currency: :UAH}
+  iex> d = ~m[924.06]uah
+  %Dinero{amount: 92406, currency: :UAH}
+  iex> "Amount #{d}"
+  "Amount 924.06"
 ```
 
 ### Using with Postgres
@@ -69,6 +78,19 @@ Elixir library for working with Money (slang Dinero)
 
     ```
 
+### Dinero.Sigil
+
+```elixir
+# Sigils for Dinero
+import Dinero.Sigil
+
+iex> ~m[100]UAH
+%Money{amount: 10000, currency: :UAH}
+
+# Default currency is USD
+iex> ~m[100]
+%Money{amount: 10000, currency: :USD}
+```
 
 ## Installation
 
@@ -78,7 +100,7 @@ by adding `dinero` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:dinero, "~> 1.2.0"}
+    {:dinero, "~> 1.2.1"}
   ]
 end
 ```

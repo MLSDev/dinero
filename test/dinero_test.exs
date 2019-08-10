@@ -104,6 +104,7 @@ defmodule DineroTest do
     target = :UAH
 
     assert Dinero.convert(source, target, rate) == Dinero.new(2568.7, :UAH)
+    assert Dinero.convert(Dinero.new(924.06, :UAH), :USD, 1.0 / 25.489178) == Dinero.new(36.25, :USD)
   end
 
   test "the same currencies" do
@@ -114,5 +115,11 @@ defmodule DineroTest do
     assert_raise ArgumentError, fn ->
       Dinero.convert(source, target, rate)
     end
+  end
+
+  test "to_string" do
+    d = Dinero.new(100, :USD)
+    assert to_string(d) == "100.00"
+    assert "#{d}" == "100.00"
   end
 end

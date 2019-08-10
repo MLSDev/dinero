@@ -177,7 +177,7 @@ defmodule Dinero do
   def convert(%Dinero{} = d, target, exchange_rate) do
     if get_currency_code(d.currency) != get_currency_code(target) do
       %Dinero{
-        amount: trunc(d.amount * round(exchange_rate * 100) / 100),
+        amount: trunc(d.amount * exchange_rate),
         currency: get_currency_code(target)
       }
     else
@@ -187,5 +187,12 @@ defmodule Dinero do
 
   defp get_currency_code(currency) do
     Currency.get!(currency).code
+  end
+end
+
+defimpl String.Chars, for: Dinero do
+  def to_string(dinero) do
+    :erlang.float_to_binary(dinero.amount / 100, [decimals: 2])
+    #Kernel.to_string(dinero.amount / 100)
   end
 end

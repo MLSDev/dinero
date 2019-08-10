@@ -1,4 +1,8 @@
 # Changelog
+## `1.2.1` - 10.08.2019
+ - Convertation fixed
+ - Default currency for sigil is USD
+ - `String.Chars` implemented and now `Dinero` can be used as an argument for `to_string/1`
 ## `1.2.0` - 22.07.2019
  - Now it contains 2 methods `Dinero.multiply/2` and `Dinero.mulitply/3` for truncations and rounding up results of multiplying
  - Now there are `Dinero.divide/2` and `Dinero.divide/3` for truncations and rounding up results of dividing
