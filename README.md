@@ -85,11 +85,11 @@ Elixir library for working with Money (slang Dinero)
 import Dinero.Sigil
 
 iex> ~m[100]UAH
-%Money{amount: 10000, currency: :UAH}
+%Dinero{amount: 10000, currency: :UAH}
 
 # Default currency is USD
 iex> ~m[100]
-%Money{amount: 10000, currency: :USD}
+%Dinero{amount: 10000, currency: :USD}
 ```
 
 ## Installation
