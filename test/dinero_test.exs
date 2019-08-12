@@ -122,4 +122,13 @@ defmodule DineroTest do
     assert to_string(d) == "100.00"
     assert "#{d}" == "100.00"
   end
+
+  test "parse" do
+    assert Dinero.parse("123") == Dinero.new(123, :USD)
+    assert Dinero.parse("123", :UAH) == Dinero.new(123, :UAH)
+    assert Dinero.parse("256_870") == Dinero.new(256870, :USD)
+    assert Dinero.parse("321.04") == Dinero.new(321.04, :USD)
+    assert Dinero.parse("321.0569234234") == Dinero.new(321.05, :USD)
+    assert Dinero.parse("1231.123123.12312.123123") == Dinero.new(12312, :USD)
+  end
 end

@@ -185,6 +185,13 @@ defmodule Dinero do
     end
   end
 
+  def parse(amount, currency \\ :USD) when is_binary(amount) do
+    amount = String.replace(amount, "_", "")
+    if (String.contains?(amount, ".")) do
+    else
+    end
+  end
+
   defp get_currency_code(currency) do
     Currency.get!(currency).code
   end
@@ -193,6 +200,5 @@ end
 defimpl String.Chars, for: Dinero do
   def to_string(dinero) do
     :erlang.float_to_binary(dinero.amount / 100, [decimals: 2])
-    #Kernel.to_string(dinero.amount / 100)
   end
 end
