@@ -10,5 +10,6 @@ defmodule UtilsTest do
     assert Utils.convert_currency_to_coins(2568.7) == 256_870
     assert Utils.convert_currency_to_coins(0.02) == 2
     assert Utils.convert_currency_to_coins(0.0002) == 0
+    assert Utils.convert_currency_to_coins(1.0e3) == 100000
   end
 end

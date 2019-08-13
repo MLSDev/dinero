@@ -2,10 +2,23 @@ defmodule Dinero.Utils do
   @moduledoc false
   # 2568.7 * 100 must be 256870 and not 256869.9999...
   def convert_currency_to_coins(value) when is_float(value) do
-    list =
+    str_value = Float.to_string(value)
+    
+    if (String.contains?(str_value, "e")) do
       value
-      |> Float.to_string()
-      |> String.split(".")
+      |> trunc()
+      |> convert_currency_to_coins()
+    else
+      parse_general_float(str_value)
+    end
+  end
+
+  def convert_currency_to_coins(value) when is_integer(value) do
+    value * 100
+  end
+
+  defp parse_general_float(str_value) do
+    list =String.split(str_value, ".")
 
     first =
       list
@@ -23,9 +36,5 @@ defmodule Dinero.Utils do
       |> String.to_integer()
       |> Kernel.+(first)
     end
-  end
-
-  def convert_currency_to_coins(value) when is_integer(value) do
-    value * 100
   end
 end

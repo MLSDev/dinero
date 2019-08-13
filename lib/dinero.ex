@@ -188,7 +188,16 @@ defmodule Dinero do
   def parse(amount, currency \\ :USD) when is_binary(amount) do
     amount = String.replace(amount, "_", "")
     if (String.contains?(amount, ".")) do
+      case Float.parse(amount) do
+        {a, _} ->
+          Dinero.new(a, currency)
+        :error -> raise ArgumentError
+      end
     else
+      case Integer.parse(amount) do
+        {a, _} -> Dinero.new(a, currency)
+        :error -> raise ArgumentError
+      end
     end
   end
 
