@@ -20,6 +20,10 @@ Elixir library for working with Money (slang Dinero)
   %Dinero{amount: 92406, currency: :UAH}
   iex> "Amount #{d}"
   "Amount 924.06"
+  iex> Dinero.new(1.0e4, :USD) 
+  %Dinero{amount: 1000000, currency: :USD}
+  iex> Dinero.parse("1312.14")
+  %Dinero{amount: 131214, currency: :USD}
 ```
 
 ### Using with Postgres
@@ -100,7 +104,7 @@ by adding `dinero` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:dinero, "~> 1.2.1"}
+    {:dinero, "~> 1.2.2"}
   ]
 end
 ```

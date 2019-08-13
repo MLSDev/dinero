@@ -68,7 +68,9 @@ defmodule DineroTest do
 
     assert Dinero.multiply(Dinero.new(8.93, :USD), 121.75, :round_up) == Dinero.new(1087.23, :USD)
     assert Dinero.multiply(Dinero.new(8.93, :USD), 161.75, :round_up) == Dinero.new(1444.43, :USD)
-    assert Dinero.multiply(Dinero.new(17.26, :USD), 125.99, :round_up) == Dinero.new(2174.59, :USD)
+
+    assert Dinero.multiply(Dinero.new(17.26, :USD), 125.99, :round_up) ==
+             Dinero.new(2174.59, :USD)
   end
 
   test "multiply trunc float" do
@@ -93,9 +95,14 @@ defmodule DineroTest do
   test "divide round up" do
     hours_per_month = 168
 
-    assert Dinero.divide(Dinero.new(3000, :USD), hours_per_month, :round_up) == Dinero.new(17.86, :USD)
-    assert Dinero.divide(Dinero.new(1500, :USD), hours_per_month, :round_up) == Dinero.new(8.93, :USD)
-    assert Dinero.divide(Dinero.new(2500, :USD), hours_per_month, :round_up) == Dinero.new(14.88, :USD)
+    assert Dinero.divide(Dinero.new(3000, :USD), hours_per_month, :round_up) ==
+             Dinero.new(17.86, :USD)
+
+    assert Dinero.divide(Dinero.new(1500, :USD), hours_per_month, :round_up) ==
+             Dinero.new(8.93, :USD)
+
+    assert Dinero.divide(Dinero.new(2500, :USD), hours_per_month, :round_up) ==
+             Dinero.new(14.88, :USD)
   end
 
   test "exchange different currencies" do
@@ -104,7 +111,9 @@ defmodule DineroTest do
     target = :UAH
 
     assert Dinero.convert(source, target, rate) == Dinero.new(2568.7, :UAH)
-    assert Dinero.convert(Dinero.new(924.06, :UAH), :USD, 1.0 / 25.489178) == Dinero.new(36.25, :USD)
+
+    assert Dinero.convert(Dinero.new(924.06, :UAH), :USD, 1.0 / 25.489178) ==
+             Dinero.new(36.25, :USD)
   end
 
   test "the same currencies" do
@@ -126,10 +135,20 @@ defmodule DineroTest do
   test "parse" do
     assert Dinero.parse("123") == Dinero.new(123, :USD)
     assert Dinero.parse("123", :UAH) == Dinero.new(123, :UAH)
-    assert Dinero.parse("256_870") == Dinero.new(256870, :USD)
+    assert Dinero.parse("256_870") == Dinero.new(256_870, :USD)
     assert Dinero.parse("321.04") == Dinero.new(321.04, :USD)
     assert Dinero.parse("321.0569234234") == Dinero.new(321.05, :USD)
     assert Dinero.parse("100.00") == Dinero.new(100, :USD)
-    assert Dinero.parse("1231.123123.12312.123123") == Dinero.new(1231, :USD)
+    assert Dinero.parse("1231.123123.12312.123123") == Dinero.new(1231.12, :USD)
+  end
+
+  test "parse invalid string" do
+    assert_raise ArgumentError, fn ->
+      Dinero.parse("invalid string")
+    end
+
+    assert_raise ArgumentError, fn ->
+      Dinero.parse("invalid.string")
+    end
   end
 end

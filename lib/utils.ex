@@ -3,8 +3,8 @@ defmodule Dinero.Utils do
   # 2568.7 * 100 must be 256870 and not 256869.9999...
   def convert_currency_to_coins(value) when is_float(value) do
     str_value = Float.to_string(value)
-    
-    if (String.contains?(str_value, "e")) do
+
+    if String.contains?(str_value, "e") do
       value
       |> trunc()
       |> convert_currency_to_coins()
@@ -18,7 +18,7 @@ defmodule Dinero.Utils do
   end
 
   defp parse_general_float(str_value) do
-    list =String.split(str_value, ".")
+    list = String.split(str_value, ".")
 
     first =
       list

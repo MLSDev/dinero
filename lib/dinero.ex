@@ -36,6 +36,8 @@ defmodule Dinero do
 
       iex> Dinero.new(100, :USD)
       %Dinero{amount: 10000, currency: :USD}
+      iex> Dinero.new(1.0e4, :USD) 
+      %Dinero{amount: 1000000, currency: :USD}
       iex> Dinero.new(100, :RUR)
       ** (ArgumentError) currency RUR not found
     
@@ -185,18 +187,49 @@ defmodule Dinero do
     end
   end
 
+  @spec parse(String.t(), atom) :: t
+  @doc ~S"""
+  Creates `Dinero` from String that represents integer or float. If a string can't be parsed ArgumentError is raised
+  If the second param is not provided it uses USD as default currency
+
+  ## Examples
+
+    iex> Dinero.parse("123.23")
+    %Dinero{amount: 12323, currency: :USD}
+    iex> Dinero.parse("112")
+    %Dinero{amount: 11200, currency: :USD}
+    iex> Dinero.parse("2", :UAH)
+    %Dinero{amount: 200, currency: :UAH}
+    iex> Dinero.parse("100.00")  
+    %Dinero{amount: 10000, currency: :USD}
+    iex> Dinero.parse("invalid string")
+    ** (ArgumentError) invalid string. it must contain string that represents integer or float
+
+  """
   def parse(amount, currency \\ :USD) when is_binary(amount) do
     amount = String.replace(amount, "_", "")
-    if (String.contains?(amount, ".")) do
+
+    if String.contains?(amount, ".") do
       case Float.parse(amount) do
         {a, _} ->
           Dinero.new(a, currency)
-        :error -> raise ArgumentError
+
+        :error ->
+          raise(
+            ArgumentError,
+            "invalid string. it must contain string that represents integer or float"
+          )
       end
     else
       case Integer.parse(amount) do
-        {a, _} -> Dinero.new(a, currency)
-        :error -> raise ArgumentError
+        {a, _} ->
+          Dinero.new(a, currency)
+
+        :error ->
+          raise(
+            ArgumentError,
+            "invalid string. it must contain string that represents integer or float"
+          )
       end
     end
   end
@@ -208,6 +241,6 @@ end
 
 defimpl String.Chars, for: Dinero do
   def to_string(dinero) do
-    :erlang.float_to_binary(dinero.amount / 100, [decimals: 2])
+    :erlang.float_to_binary(dinero.amount / 100, decimals: 2)
   end
 end

@@ -1,4 +1,7 @@
 # Changelog
+## `1.2.2` - 13.08.2019
+ - Ability to create `Dinero` struct from String added. See `Dinero.parse/2`
+ - Ability to create `Dinero` struct from [scientific notation](https://en.wikipedia.org/wiki/Scientific_notation)
 ## `1.2.1` - 10.08.2019
  - Convertation fixed
  - Default currency for sigil is USD
