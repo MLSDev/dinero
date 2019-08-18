@@ -1,5 +1,6 @@
+[![Hex Version](http://img.shields.io/hexpm/v/dinero.svg?style=flat)](https://hex.pm/packages/dinero)
+[![Hex docs](http://img.shields.io/badge/hex.pm-docs-green.svg?style=flat)](https://hexdocs.pm/dinero)
 [![Build Status](https://travis-ci.org/MLSDev/dinero.svg?branch=master)](https://travis-ci.org/MLSDev/dinero)
-
 
 # Dinero
 
