@@ -104,7 +104,7 @@ by adding `dinero` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:dinero, "~> 1.2.2"}
+    {:dinero, "~> 1.2"}
   ]
 end
 ```

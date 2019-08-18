@@ -1,4 +1,6 @@
 # Changelog
+## `1.2.3` - 18.08.2019
+ - `Dinero.equals?/2` and `Dinero.zero?/1` added
 ## `1.2.2` - 13.08.2019
  - Ability to create `Dinero` struct from String added. See `Dinero.parse/2`
  - Ability to create `Dinero` struct from [scientific notation](https://en.wikipedia.org/wiki/Scientific_notation)

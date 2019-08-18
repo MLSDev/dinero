@@ -151,4 +151,14 @@ defmodule DineroTest do
       Dinero.parse("invalid.string")
     end
   end
+
+  test "equals?" do
+    assert Dinero.equals?(Dinero.new(2568.7, :UAH), Dinero.parse("2568.70", "UAH"))
+    refute Dinero.equals?(Dinero.new(2568.7, :USD), Dinero.parse("2568.70", "UAH"))
+  end
+
+  test "zero?" do
+    assert Dinero.zero?(%Dinero{amount: 0, currency: :USD})
+    refute Dinero.zero?(%Dinero{amount: 1, currency: :UAH})
+  end
 end

@@ -209,30 +209,41 @@ defmodule Dinero do
   def parse(amount, currency \\ :USD) when is_binary(amount) do
     amount = String.replace(amount, "_", "")
 
-    if String.contains?(amount, ".") do
-      case Float.parse(amount) do
-        {a, _} ->
-          Dinero.new(a, currency)
-
-        :error ->
-          raise(
-            ArgumentError,
-            "invalid string. it must contain string that represents integer or float"
-          )
+    amount =
+      if String.contains?(amount, ".") do
+        Float.parse(amount)
+      else
+        Integer.parse(amount)
       end
-    else
-      case Integer.parse(amount) do
-        {a, _} ->
-          Dinero.new(a, currency)
 
-        :error ->
-          raise(
-            ArgumentError,
-            "invalid string. it must contain string that represents integer or float"
-          )
-      end
+    case amount do
+      {a, _} ->
+        Dinero.new(a, currency)
+
+      :error ->
+        raise(
+          ArgumentError,
+          "invalid string. it must contain string that represents integer or float"
+        )
     end
   end
+
+
+  @spec equals?(t, t) :: boolean
+  @doc """
+  Compares two Dinero structs.
+
+  Returns `true`, if amounts and currencies match. Otherwise returns `false`.
+  """
+  def equals?(%Dinero{} = a, %Dinero{} = b) do
+    a.amount == b.amount && get_currency_code(a.currency) == get_currency_code(b.currency)
+  end
+
+  @spec zero?(t) :: boolean
+  @doc """
+  Returns `true`, if amount is zero.
+  """
+  def zero?(%Dinero{} = a), do: a.amount == 0
 
   defp get_currency_code(currency) do
     Currency.get!(currency).code
