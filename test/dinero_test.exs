@@ -21,6 +21,10 @@ defmodule DineroTest do
     end
   end
 
+  test "default currency" do
+    assert %Dinero{amount: 100_00, currency: :USD} == Dinero.new(100)
+  end
+
   test "add the same currencies" do
     a = Dinero.new(123, :USD)
     b = Dinero.new(321, :USD)
@@ -126,38 +130,50 @@ defmodule DineroTest do
     end
   end
 
-  test "to_string" do
+  test "to_string/1 and String.Chars protocol implementation" do
     d = Dinero.new(100, :USD)
     assert to_string(d) == "100.00"
     assert "#{d}" == "100.00"
   end
 
-  test "parse" do
-    assert Dinero.parse("123") == Dinero.new(123, :USD)
-    assert Dinero.parse("123", :UAH) == Dinero.new(123, :UAH)
-    assert Dinero.parse("256_870") == Dinero.new(256_870, :USD)
-    assert Dinero.parse("321.04") == Dinero.new(321.04, :USD)
-    assert Dinero.parse("321.0569234234") == Dinero.new(321.05, :USD)
-    assert Dinero.parse("100.00") == Dinero.new(100, :USD)
-    assert Dinero.parse("1231.123123.12312.123123") == Dinero.new(1231.12, :USD)
+  test "parse/2" do
+    assert Dinero.parse("123") == {:ok, Dinero.new(123, :USD)}
+    assert Dinero.parse("123") == {:ok, Dinero.new(123, :USD)}
+    assert Dinero.parse("1,123", :UAH) == {:ok, Dinero.new(1123, :UAH)}
   end
 
-  test "parse invalid string" do
+  test "parse/2 invalid string" do
+    assert Dinero.parse("invalid string") == :error
+    assert Dinero.parse("invalid string") == :error
+  end
+
+  test "parse!/2 valid input" do
+    assert Dinero.parse!("123") == Dinero.new(123, :USD)
+    assert Dinero.parse!("123") == Dinero.new(123, :USD)
+    assert Dinero.parse!("1,123,000", :UAH) == Dinero.new(1123000, :UAH)
+    assert Dinero.parse!("256_870") == Dinero.new(256_870, :USD)
+    assert Dinero.parse!("321.04") == Dinero.new(321.04, :USD)
+    assert Dinero.parse!("321.0569234234") == Dinero.new(321.05, :USD)
+    assert Dinero.parse!("100.00") == Dinero.new(100, :USD)
+    assert Dinero.parse!("1231.123123.12312.123123") == Dinero.new(1231.12, :USD)
+  end
+
+  test "parse!/2 invalid input" do
     assert_raise ArgumentError, fn ->
-      Dinero.parse("invalid string")
+      Dinero.parse!("invalid string")
     end
 
     assert_raise ArgumentError, fn ->
-      Dinero.parse("invalid.string")
+      Dinero.parse!("invalid.string")
     end
   end
 
-  test "equals?" do
-    assert Dinero.equals?(Dinero.new(2568.7, :UAH), Dinero.parse("2568.70", "UAH"))
-    refute Dinero.equals?(Dinero.new(2568.7, :USD), Dinero.parse("2568.70", "UAH"))
+  test "equals?/2" do
+    assert Dinero.equals?(Dinero.new(2568.7, :UAH), Dinero.parse!("2568.70", "UAH"))
+    refute Dinero.equals?(Dinero.new(2568.7, :USD), Dinero.parse!("2568.70", "UAH"))
   end
 
-  test "zero?" do
+  test "zero?/1" do
     assert Dinero.zero?(%Dinero{amount: 0, currency: :USD})
     refute Dinero.zero?(%Dinero{amount: 1, currency: :UAH})
   end

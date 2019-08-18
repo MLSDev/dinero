@@ -38,7 +38,18 @@ defmodule Dinero.Ecto.DineroWithCurrency.Test do
     assert DineroWithCurrency.cast({124_534, :UAH}) == {:ok, b}
   end
 
-  test "cast map" do
+  test "cast/1 String" do
+    assert DineroWithCurrency.cast("1000") == {:ok, Dinero.new(1000, :USD)}
+    assert DineroWithCurrency.cast("1234.56") == {:ok, Dinero.new(1234.56, :USD)}
+    assert DineroWithCurrency.cast("1,234.56") == {:ok, Dinero.new(1234.56, :USD)}
+  end
+
+  test "cast/1 integer" do
+    assert DineroWithCurrency.cast(1000) == {:ok, Dinero.new(1000, :USD)}
+  end
+
+  test "cast/1 float" do
+    assert DineroWithCurrency.cast(10.00) == {:ok, Dinero.new(10, :USD)}
   end
 
   test "invalid data" do

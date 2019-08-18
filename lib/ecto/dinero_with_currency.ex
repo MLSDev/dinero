@@ -53,6 +53,18 @@ if Code.ensure_compiled?(Ecto.Type) do
       {:ok, Dinero.new(amount / 100, currency)}
     end
 
+    def cast(amount) when is_binary(amount) do
+      Dinero.parse(amount)
+    end
+
+    def cast(amount) when is_integer(amount) do
+      {:ok, Dinero.new(amount)}
+    end
+
+    def cast(amount) when is_float(amount) do
+      {:ok, Dinero.new(amount)}
+    end
+
     def cast(_), do: :error
   end
 end

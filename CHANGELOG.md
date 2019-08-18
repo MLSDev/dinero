@@ -1,4 +1,10 @@
 # Changelog
+## `1.3.0` - 19.08.2019
+ - `Dinero.parse!/2` added
+ - `Dinero.parse/2` now conforms to Elixir conventions and returns either `{:ok, %Dinero{}}` or `:error`
+ - `DineroWithCurrency.cast/1` now supports `String`, `integer` and `float`
+ - parsing Strings like `"1,235,837.50"`
+ - default currency for `Dinero.new/2` added (`:USD`)
 ## `1.2.3` - 18.08.2019
  - `Dinero.equals?/2` and `Dinero.zero?/1` added
 ## `1.2.2` - 13.08.2019

@@ -2,7 +2,8 @@
 
 
 # Dinero
-Elixir library for working with Money (slang Dinero)
+
+Elixir library for working with monetary values. Dinero is slang for money.
 
 ## How to use
 ```elixir
@@ -104,7 +105,7 @@ by adding `dinero` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:dinero, "~> 1.2"}
+    {:dinero, "~> 1.3"}
   ]
 end
 ```
@@ -112,7 +113,7 @@ end
 Documentation can be found [here](https://hexdocs.pm/dinero)
 
 ## Authors
-* [Slava Fir][github-fir] , MLSDev 
+* [Slava Fir][github-fir], MLSDev
 
 ## License
 Dinero is released under the MIT license. See LICENSE for details.

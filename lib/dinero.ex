@@ -42,7 +42,7 @@ defmodule Dinero do
       ** (ArgumentError) currency RUR not found
     
   """
-  def new(amount, currency)
+  def new(amount, currency \\ :USD)
       when (is_integer(amount) or is_float(amount)) and (is_atom(currency) or is_binary(currency)) do
     %Dinero{
       amount: Utils.convert_currency_to_coins(amount),
@@ -187,38 +187,29 @@ defmodule Dinero do
     end
   end
 
-  @spec parse(String.t(), atom) :: t
+  @spec parse!(String.t(), atom) :: t
   @doc ~S"""
   Creates `Dinero` from String that represents integer or float. If a string can't be parsed ArgumentError is raised
   If the second param is not provided it uses USD as default currency
 
   ## Examples
 
-    iex> Dinero.parse("123.23")
+    iex> Dinero.parse!("123.23")
     %Dinero{amount: 12323, currency: :USD}
-    iex> Dinero.parse("112")
+    iex> Dinero.parse!("112")
     %Dinero{amount: 11200, currency: :USD}
-    iex> Dinero.parse("2", :UAH)
+    iex> Dinero.parse!("2", :UAH)
     %Dinero{amount: 200, currency: :UAH}
-    iex> Dinero.parse("100.00")  
+    iex> Dinero.parse!("100.00")  
     %Dinero{amount: 10000, currency: :USD}
-    iex> Dinero.parse("invalid string")
+    iex> Dinero.parse!("invalid string")
     ** (ArgumentError) invalid string. it must contain string that represents integer or float
 
   """
-  def parse(amount, currency \\ :USD) when is_binary(amount) do
-    amount = String.replace(amount, "_", "")
-
-    amount =
-      if String.contains?(amount, ".") do
-        Float.parse(amount)
-      else
-        Integer.parse(amount)
-      end
-
-    case amount do
-      {a, _} ->
-        Dinero.new(a, currency)
+  def parse!(amount, currency \\ :USD) when is_binary(amount) do
+    case parse(amount, currency) do
+      {:ok, %Dinero{} = dinero} ->
+        dinero
 
       :error ->
         raise(
@@ -228,6 +219,33 @@ defmodule Dinero do
     end
   end
 
+  @spec parse(String.t(), atom) :: {:ok, t} | :error
+  @doc """
+  Same as `parse!/2, but returns either `{:ok, %Dinero{}}` or `:error`
+
+  ## Examples
+
+    iex> Dinero.parse("123.23")
+    {:ok, %Dinero{amount: 12323, currency: :USD}}
+    iex> Dinero.parse("invalid string")
+    :error
+
+  """
+  def parse(amount, currency \\ :USD) when is_binary(amount) do
+    amount = String.replace(amount, ~r/[_,]/, "")
+
+    amount =
+      if String.contains?(amount, ".") do
+        Float.parse(amount)
+      else
+        Integer.parse(amount)
+      end
+
+    case amount do
+      {a, _} -> {:ok, Dinero.new(a, currency)}
+      :error -> :error
+    end
+  end
 
   @spec equals?(t, t) :: boolean
   @doc """
