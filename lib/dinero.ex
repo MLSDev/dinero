@@ -80,7 +80,7 @@ defmodule Dinero do
       %Dinero{amount: 2000, currency: :USD}
       iex> Dinero.subtract(d1, d2)
       %Dinero{amount: 8000, currency: :USD}
-    
+
   """
   def subtract(%Dinero{amount: a, currency: currency}, %Dinero{amount: b, currency: currency}) do
     %Dinero{amount: a - b, currency: get_currency_code(currency)}
@@ -100,7 +100,7 @@ defmodule Dinero do
       %Dinero{amount: 10000, currency: :USD}
       iex> Dinero.multiply(d, 1.005)      
       %Dinero{amount: 10049, currency: :USD}
-    
+
   """
   def multiply(%Dinero{amount: a, currency: currency}, value)
       when is_integer(value) or is_float(value) do
@@ -136,7 +136,7 @@ defmodule Dinero do
       %Dinero{amount: 3341, currency: :USD}
       iex> Dinero.divide(d, 5)
       %Dinero{amount: 2004, currency: :USD}
-    
+
   """
   def divide(%Dinero{amount: a, currency: currency}, value)
       when is_integer(value) or is_float(value) do
@@ -155,7 +155,7 @@ defmodule Dinero do
       %Dinero{amount: 3341, currency: :USD}
       iex> Dinero.divide(d, 5, :round_up)
       %Dinero{amount: 2005, currency: :USD}
-    
+
   """
   def divide(%Dinero{amount: a, currency: currency}, value, round_up)
       when (is_integer(value) or is_float(value)) and is_atom(round_up) do
@@ -174,7 +174,7 @@ defmodule Dinero do
       %Dinero{amount: 262000, currency: :UAH}
       iex> Dinero.convert(d, :USD, 26.2)
       ** (ArgumentError) target currency must be different from source currency
-    
+
   """
   def convert(%Dinero{} = d, target, exchange_rate) do
     if get_currency_code(d.currency) != get_currency_code(target) do
@@ -265,6 +265,23 @@ defmodule Dinero do
 
   defp get_currency_code(currency) do
     Currency.get!(currency).code
+  end
+
+  @spec to_float(t) :: float
+  @doc """
+  Returns float representation of Dinero.
+
+  ## Examples
+
+      iex> import Dinero.Sigil
+      iex> Dinero.to_float(~m[100.14]USD)
+      100.14
+      iex> Dinero.to_float(~m[0.01]uah)
+      0.01
+
+  """
+  def to_float(%Dinero{amount: amount}) do
+    amount / 100.0
   end
 end
 
