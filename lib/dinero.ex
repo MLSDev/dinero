@@ -273,3 +273,8 @@ defimpl String.Chars, for: Dinero do
     :erlang.float_to_binary(dinero.amount / 100, decimals: 2)
   end
 end
+
+if Code.ensure_compiled?(Jason.Encoder) do
+  require Protocol
+  Protocol.derive(Jason.Encoder, Dinero, only: [:amount, :currency])
+end

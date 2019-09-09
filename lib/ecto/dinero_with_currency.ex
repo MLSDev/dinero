@@ -46,6 +46,10 @@ if Code.ensure_compiled?(Ecto.Type) do
       {:ok, Dinero.new(amount / 100, currency)}
     end
 
+    def load(%{"amount" => amount, "currency" => currency}) do
+      {:ok, Dinero.new(amount / 100, currency)}
+    end
+
     def load(_), do: :error
 
     def cast({amount, currency})

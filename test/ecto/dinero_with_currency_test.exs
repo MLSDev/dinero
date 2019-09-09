@@ -27,6 +27,11 @@ defmodule Dinero.Ecto.DineroWithCurrency.Test do
     assert DineroWithCurrency.load({23_443, "UAH"}) == {:ok, b}
   end
 
+  test "load map" do
+    a = Dinero.new(100, :USD)
+    assert DineroWithCurrency.load(%{"amount" => 10000, "currency" => "USD"}) == {:ok, a}
+  end
+
   test "load invalid" do
     assert DineroWithCurrency.load("invalid data") == :error
   end

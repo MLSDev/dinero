@@ -1,6 +1,7 @@
 # Changelog
 ## `1.3.1` - 09.09.2019
  - `DineroWithCurrency.cast/1` now supports `Dinero` struct
+ - support for Jason.Encoder for Ecto embeds
 ## `1.3.0` - 19.08.2019
  - `Dinero.parse!/2` added
  - `Dinero.parse/2` now conforms to Elixir conventions and returns either `{:ok, %Dinero{}}` or `:error`
