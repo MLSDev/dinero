@@ -98,7 +98,7 @@ defmodule Dinero do
       %Dinero{amount: 48000, currency: :USD}
       iex> d = Dinero.new(100, :USD)
       %Dinero{amount: 10000, currency: :USD}
-      iex> Dinero.multiply(d, 1.005)      
+      iex> Dinero.multiply(d, 1.005)
       %Dinero{amount: 10049, currency: :USD}
 
   """
@@ -107,7 +107,7 @@ defmodule Dinero do
     %Dinero{amount: trunc(a * value), currency: get_currency_code(currency)}
   end
 
-  @spec multiply(t, integer | float, atom) :: t
+  @spec multiply(t, integer | float, :round_up) :: t
   @doc ~S"""
   Multiplies a `Dinero` by a value and rounds up the result
 
@@ -119,8 +119,8 @@ defmodule Dinero do
       %Dinero{amount: 10050, currency: :USD}
 
   """
-  def multiply(%Dinero{amount: a, currency: currency}, value, round_up)
-      when (is_integer(value) or is_float(value)) and is_atom(round_up) do
+  def multiply(%Dinero{amount: a, currency: currency}, value, :round_up)
+      when is_number(value) do
     %Dinero{amount: round(a * value), currency: get_currency_code(currency)}
   end
 

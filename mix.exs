@@ -1,7 +1,7 @@
 defmodule Dinero.MixProject do
   use Mix.Project
 
-  @version "1.3.1"
+  @version "1.3.2"
 
   def project do
     [
@@ -20,11 +20,7 @@ defmodule Dinero.MixProject do
       ],
       package: package(),
       source_url: "https://github.com/MLSDev/dinero",
-      docs: [
-        main: "readme",
-        extras: ["README.md"],
-        source_ref: "v#{@version}"
-      ]
+      docs: docs()
     ]
   end
 
@@ -53,6 +49,17 @@ defmodule Dinero.MixProject do
       {:ecto, "~>3.0", optional: true},
       {:excoveralls, "~> 0.10", only: :test},
       {:ex_doc, "~> 0.19", only: :dev, runtime: false}
+    ]
+  end
+
+  def docs do
+    [
+      extras: [
+        "README.md": [filename: "readme", title: "Readme"],
+        "CHANGELOG.md": [filename: "changelog", title: "Changelog"],
+      ],
+      main: "readme",
+      source_ref: "v#{@version}"
     ]
   end
 end
