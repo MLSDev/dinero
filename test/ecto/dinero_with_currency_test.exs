@@ -38,6 +38,11 @@ defmodule Dinero.Ecto.DineroWithCurrency.Test do
     assert DineroWithCurrency.cast({124_534, :UAH}) == {:ok, b}
   end
 
+  test "cast struct" do
+    a = Dinero.new(100, :USD)
+    assert DineroWithCurrency.cast(a) == {:ok, a}
+  end
+
   test "cast/1 String" do
     assert DineroWithCurrency.cast("1000") == {:ok, Dinero.new(1000, :USD)}
     assert DineroWithCurrency.cast("1234.56") == {:ok, Dinero.new(1234.56, :USD)}

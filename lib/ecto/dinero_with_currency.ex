@@ -65,6 +65,10 @@ if Code.ensure_compiled?(Ecto.Type) do
       {:ok, Dinero.new(amount)}
     end
 
+    def cast(%Dinero{} = dinero) do
+      {:ok, dinero}
+    end
+
     def cast(_), do: :error
   end
 end
