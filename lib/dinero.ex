@@ -221,7 +221,7 @@ defmodule Dinero do
 
   @spec parse(String.t(), atom) :: {:ok, t} | :error
   @doc """
-  Same as `parse!/2, but returns either `{:ok, %Dinero{}}` or `:error`
+  Same as `parse!/2`, but returns either `{:ok, %Dinero{}}` or `:error`
 
   ## Examples
 
