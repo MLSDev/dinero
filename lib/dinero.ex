@@ -194,16 +194,16 @@ defmodule Dinero do
 
   ## Examples
 
-    iex> Dinero.parse!("123.23")
-    %Dinero{amount: 12323, currency: :USD}
-    iex> Dinero.parse!("112")
-    %Dinero{amount: 11200, currency: :USD}
-    iex> Dinero.parse!("2", :UAH)
-    %Dinero{amount: 200, currency: :UAH}
-    iex> Dinero.parse!("100.00")  
-    %Dinero{amount: 10000, currency: :USD}
-    iex> Dinero.parse!("invalid string")
-    ** (ArgumentError) invalid string. it must contain string that represents integer or float
+      iex> Dinero.parse!("123.23")
+      %Dinero{amount: 12323, currency: :USD}
+      iex> Dinero.parse!("112")
+      %Dinero{amount: 11200, currency: :USD}
+      iex> Dinero.parse!("2", :UAH)
+      %Dinero{amount: 200, currency: :UAH}
+      iex> Dinero.parse!("100.00")  
+      %Dinero{amount: 10000, currency: :USD}
+      iex> Dinero.parse!("invalid string")
+      ** (ArgumentError) invalid string. it must contain string that represents integer or float
 
   """
   def parse!(amount, currency \\ :USD) when is_binary(amount) do
@@ -225,10 +225,10 @@ defmodule Dinero do
 
   ## Examples
 
-    iex> Dinero.parse("123.23")
-    {:ok, %Dinero{amount: 12323, currency: :USD}}
-    iex> Dinero.parse("invalid string")
-    :error
+      iex> Dinero.parse("123.23")
+      {:ok, %Dinero{amount: 12323, currency: :USD}}
+      iex> Dinero.parse("invalid string")
+      :error
 
   """
   def parse(amount, currency \\ :USD) when is_binary(amount) do
